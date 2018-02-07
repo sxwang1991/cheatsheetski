@@ -1,0 +1,32 @@
+%
+% Main Header
+%
+% Merge pdf on two pages
+% 
+% add new page with \addPdfSection
+%
+\documentclass[11pt,a4paper]{report}
+
+% if your printer can't print thin border, change these values below :
+\usepackage[landscape,a4paper,top=1.5cm,bottom=1.2cm,left=1cm, right=0.2cm]{geometry}
+\usepackage[table]{xcolor}
+\usepackage{pdfpages}
+\usepackage{titling}
+\usepackage{fancyhdr}
+
+
+\title{CheatSheetSki}
+\date\today
+\author{Tanski Mikael, \copyright \thedate }
+
+\newcommand{\addPdfSection}[1]{
+    \setcounter{page}{1}
+    \pagestyle{fancy}
+    \rhead{\textbf{\textsf{\Huge{#1 \thepage}}}}
+    \lfoot{\textsf{\small{\theauthor}}}
+    \cfoot{\textsf{\thetitle}}
+    \rfoot{\textsf{\textbf{\Huge{#1 \thepage}}}}
+    \renewcommand{\headrulewidth}{0.0pt}
+    \renewcommand{\footrulewidth}{0.0pt}
+    \includepdf[pages={1-},pagecommand={\pagestyle{fancy}},nup=2x1,landscape=false,delta=4 0,scale=0.92]{pdf/#1}
+}

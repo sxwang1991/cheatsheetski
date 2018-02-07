@@ -1,0 +1,108 @@
+%
+% Header file to include in page command type
+% 
+% Setting of the page cmd should be insered here
+% command : addtitle addline
+% env : tabcmd code
+%
+\documentclass{report}
+\usepackage[a4paper,margin=0.0cm, top=0cm,right=0cm,left=0cm,bottom=0.5cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[table]{xcolor}
+\usepackage{tabularx}
+\usepackage{ltablex}
+\usepackage{environ}
+\usepackage{titlesec}
+\usepackage{listings}
+
+% no indent
+\setlength{\parindent}{0cm}
+
+% alternate color table
+\rowcolors{1}{gray!30}{white}
+
+% Sans serif for all document
+\renewcommand{\familydefault}{\sfdefault}
+
+% titghen the title
+\titlespacing*{\subsection}{1pt}{0em}{0em}
+\setlength{\textfloatsep}{0pt}
+
+% environment to make a table of command
+\NewEnviron{tabcmd}
+{%
+\keepXColumns
+\begin{tabularx}{\linewidth}{l|X}%
+\BODY
+\end{tabularx}
+}
+
+% add line to tabcmd environment
+\newcommand{\addline}[2]{%
+\texttt{#1} & \textsf{#2} \\ }
+
+% listings package environment to write code
+\lstnewenvironment{code}[2]
+{
+\def\tmpl{#2}\ifx\tmpl\empty
+\else
+\lstset{language=#2}
+\fi
+\def\tmp{#1}\ifx\tmp\empty
+\else
+\subsection*{#1}
+\fi
+}{}
+
+% add title
+\newcommand{\addtitle}[1]{%
+\subsection*{#1}
+\vspace{-13pt}
+}
+
+% listings package configuration
+\lstset{aboveskip=0cm, frame=leftline, framesep=0pt}
+
+%\begin{document}
+%\section*{Liste des commandes :}
+%\begin{tabcmd}
+%\addline{unamefsd f sdf f sdf  sds sdf kmlk kklmf}{Affiche kmlkm klkmlk kml la machine} 
+%\addline{sitcky}{Affiche kmlkm klkmlk kml la machine} 
+%\addline{unamefsd f sdf f sdf  sds sdf kmlk kklmf}{Affiche kmlkm klkmlk kml la machine} 
+%\end{tabcmd}
+%\addtitle{BlaBlaB Bla bla :}
+%%\vspace{-13pt}
+%\begin{tabcmd}
+%\addline{unamefsd f sdf f sdf  sds sdf kmlk kklmf}{Affiche kmlkm klkmlk kml la machine} 
+%\addline{sitcky}{Affiche kmlkm klkmlk kml la machine} 
+%\addline{unamefsd f sdf f sdf  sds sdf kmlk kklmf}{Affiche kmlkm klkmlk kml la machine} 
+%\end{tabcmd}
+%
+%%\begin{minipage}{.5\linewidth}
+%\begin{code}{Test code}{}
+%import os
+%if A = B then:
+%    print("this is ok")
+%else:
+%    sys.exit()
+%
+%\end{code}
+%%\end{minipage}
+%\begin{code}{}{}
+%import os
+%if A = B then:
+%    print("this is ok")
+%else:
+%    sys.exit()
+%
+%\end{code}
+%
+%\addtitle{BlaBlaB Bla bla :}
+%\begin{tabcmd}
+%\addline{unamefsd f sdf f sdf  sds sdf kmlk kklmf}{Affiche kmlkm klkmlk kml la machine} 
+%\addline{sitcky}{Affiche kmlkm klkmlk kml la machine} 
+%\addline{unamefsd f sdf f sdf  sds sdf kmlk kklmf}{Affiche kmlkm klkmlk kml la machine} 
+%\end{tabcmd}
+%
+%\end{document}

@@ -1,0 +1,155 @@
+\input{headers/headerpage}
+
+% MEMO
+%
+%\addtitle{COMMANDS :}
+%\begin{tabcmd}
+%\addline{sed -n '/home/p' /etc/passwd}{search home string in passwd file and print it} 
+%\end{tabcmd}
+%
+%\begin{code}{Test code}{Python}
+%import os,sys
+%if A = B then:
+%    print("this is ok")
+%else:
+%    sys.exit()
+%\end{code}
+
+% Configure code language for all the document, parameter must be empty in code env
+\lstset{language=Bash}
+
+\begin{document}
+
+\addtitle{BASH ON CLI}
+\begin{tabcmd}
+\addline{help cmd}{help on builtin command} 
+\addline{type cmd}{bash type of cmd}
+\addline{history}{show command history}
+\addline{!5}{show last 5 commands typed}
+\addline{!!}{execute last command executed}
+\addline{!?str?}{search last command who contains str and execute}
+\addline{source ~/.bashrc}{read script and execute in current shell}
+\addline{cat file 2> out}{stderr to out file}
+\addline{cat file \&> out}{stdout + stderr to out file}
+\addline{cat << TOP multiline TOP}{push multiline text}
+\addline{cd -}{go to last directory, cd \$OLDPWD}
+\addline{(sleep 2; echo "Hi"; sleep 2}{create a subshell}
+\addline{coproc MyCo\{ sleep 2; \}}{subshell run in background}
+\end{tabcmd}
+
+\addtitle{ENVIRONMENT VARIABLE}
+\begin{tabcmd}
+\addline{printenv}{print global environment} 
+\addline{env}{run in specific environment or print environment}
+\addline{set}{print global and local}
+\addline{export VAR}{export VAR from local to global}
+\addline{unset}{delete local variable}
+\addline{\$HISTFILE}{file that contains historic command, set to /dev/null to disable}
+\addline{\$HISTSIZE}{amount of command to memorize}
+\addline{\$TMOUT}{How long to autodisconnect shell}
+\addline{\$RANDOM}{get a random number}
+\end{tabcmd}
+
+\addtitle{FILES}
+\begin{tabcmd}
+\addline{/etc/profile}{executed on first login} 
+\addline{/etc/bashrc}{executed on bash launch}
+\addline{\textasciitilde/.bash\_profile}{executed on first bash launchf}
+\addline{\textasciitilde/.bash\_logout}{executed on every bash logout}
+\end{tabcmd}
+
+\addtitle{SPECIAL VARIABLE}
+\begin{tabcmd}
+\addline{\$[0-9]}{get arguments from command line \$0 \$1 ...} 
+\addline{\$\#}{how many arguments}
+\end{tabcmd}
+
+\addtitle{BUILTIN COMMAND}
+\begin{tabcmd}
+\addline{basename /usr/bin/bash}{= bash} 
+\addline{dirname /user/bin/bash}{= /usr/bin}
+\addline{shift}{shift argument, \$2=\$3, \$3=\$4 ...}
+\end{tabcmd}
+
+\addtitle{REGULAR EXPRESSION}
+\begin{tabcmd}
+\addline{scr?pt}{scrapt, script...} 
+\addline{scr[ai]pt}{scrapt, script}
+\addline{f[a-i]l}{fell, fill, fall...}
+\addline{f[!a]ll}{fell, fill... not fall}
+\addline{[abc]*}{every word begin by A, B, C}
+\addline{\{a,b,c\}}{a1 a2 a3 b1 b2 b3...}
+\addline{\{a..f\}\{1..5\}}{a1 a2 a3 a4 a5 b1 b2...}
+\end{tabcmd}
+
+\addtitle{SCRIPTING}
+\begin{tabcmd}
+\addline{\$(cmd)}{execute cmd} 
+\addline{`cmd`}{execute cmd}
+\addline{\$[5 - 3]}{compute}
+\addline{arr=(on two three)}{an array}
+\addline{echo \$\{arr[1]\}}{get the 2nd item}
+\addline{echo \$\{arr[*]\}}{get all items}
+\addline{arr[2]=two}{affect two to third item}
+\addline{read -p "Input :" valA valB}{ask for values, and affect to valA valB}
+\addline{\$\{var\}}{like \$var}
+\addline{\$\{var:-abcd\}}{if var is empty, affect abcd}
+\addline{var=/usr/bin/bash}{use in next line :}
+\addline{\$\{var\#*/\}}{= usr/bin/bash}
+\addline{\$\{var\#\#*/\}}{= bash}
+\addline{\$\{var\%/*\}}{= /usr/bin}
+\addline{\$\{var\%\%/*\}}{= empty}
+\addline{\$((I++))}{increment I}
+\end{tabcmd}
+
+\begin{code}{IF CONDITION}{}
+if [ $VAR -eq 1 ]; then
+    echo "ok"
+fi
+
+if [ $STR = "hello" ]; then
+    echo "yes"
+elif [ $VAR != "bye" ]; then
+    echo "yes yes"
+else
+    echo "no"
+fi
+
+[ -d "$dirpath" ] || mkdir $dirpath
+[ -e "$dirpath" ] && echo "dir exist" || echo "dir not exist"
+\end{code}
+
+
+\begin{code}{CASE CONDITION}{}
+case $(date +%a) in
+    "dim.")
+        make_backup.sh
+    ;;
+    "sam." | "mer.")
+        empty_trash.sh
+    ;;
+    *)
+    echo "do nothing"
+esac
+\end{code}
+
+\begin{code}{FOR LOOP}{}
+for NB in 0 1 2 3 4
+do
+    echo $NB
+done
+for FILE in $(ls -l $HOME)
+do
+    echo "$FILE"
+done
+\end{code}
+
+\begin{code}{WHILE LOOP}{}
+N=0
+while [ $N -lt 10 ] ; do    # until pour l'inverse
+    echo $N
+    let N=$N+1
+done
+\end{code}
+
+\end{document}

@@ -1,0 +1,69 @@
+\input{headers/headerpage}
+
+% MEMO
+%
+%\addtitle{COMMANDS :}
+%\begin{tabcmd}
+%\addline{sed -n '/home/p' /etc/passwd}{search home string in passwd file and print it} 
+%\end{tabcmd}
+%
+%\begin{code}{Test code}{Python}
+%import os,sys
+%if A = B then:
+%    print("this is ok")
+%else:
+%    sys.exit()
+%\end{code}
+
+% Configure code language for all the document, parameter must be empty in code env
+%\lstset{language=Python}
+
+\begin{document}
+
+\addtitle{USERS AND GROUPS}
+\begin{tabcmd}
+\addline{useradd -D}{show default settings creation}
+\addline{useradd -m test}{create user test with /home directory}
+\addline{usermod}{user modification, you can do all with usermod}
+\addline{usermod -G groupA userX}{add userX to groupA}
+\addline{usermod -g groupA userX}{change the default group of userX to groupA}
+\addline{groupmod -n groupA groupB}{change the name of groupA to groupB}
+\addline{passwd}{change password}
+\addline{chage}{change the password expiration date}
+\addline{chfn}{change comment of user}
+\addline{chsh}{change shell of user}
+\addline{chpasswd < fileA}{read fileA that contains a list of user:passwd model to update there credentials}
+\end{tabcmd}
+
+\addtitle{PERMISSIONS}
+\begin{tabcmd}
+\addline{TYPES OF PERMISSIONS :}{Read=4, Write=2, eXecute=1}
+\addline{SUID}{Set User ID on execution, s=4, if S = SUID set but no executable}
+\addline{SGID}{Set Group ID on execution, s=2, all file create in this rep, get the same group of parent }
+\addline{Sticky}{On directory,user who have group write permission can't delete other user file, like un /tmp}
+\addline{COMMANDS :}{}
+\addline{chown userA.groupA file}{change owner and group in same time of file}
+\addline{chown .groupA file}{change group to groupA of file}
+\addline{chgrp groupA file}{as the previous}
+\end{tabcmd}
+
+\addtitle{JOURNALCTL COMMAND}
+\begin{tabcmd}
+\addline{journalctl --list-boots}{list last boot log}
+\addline{journalctl -b ID}{show boot log \#ID}
+\addline{journalctl -k}{show only kernel log}
+\addline{journalctl PRIORITY}{show log by priority number 0-7}
+\addline{journalctl -a -f}{show log in real time, -a all fields}
+\end{tabcmd}
+
+
+\addtitle{PROCESSES INFORMATIONS}
+\begin{tabcmd}
+\addline{ps aux}{show processes for a=all user, u=display processes user/owner, x=processes not attached to terminal}
+\addline{ps --forest}{show processes in tree representation}
+\addline{pas aux --sort=-rss}{sort +mem to -mem}
+\addline{nice +5 updatedb \&}{set priority en lunch the processus, more lower value = more \%CPU}
+\addline{renice -n -5 1010}{change priority of processus pid 1010 to 5}
+\end{tabcmd}
+
+\end{document}
