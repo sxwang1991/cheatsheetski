@@ -8,7 +8,7 @@ LOGFILE=$CURRENT_DIR/output_cmd.log
 set -e
 
 if [ -z $1 ];then set 1="";fi
-if [ $1 = "clean" ]; then
+if [ $1 = "cleanall" ]; then
     echo "Cleaning..."
     if [ $(basename $CURRENT_DIR) != "cheatsheetski" ]; then
         echo "Please run build.sh clean in the cheatsheetski/ directory"
@@ -32,5 +32,10 @@ done
 
 echo "Generating the main pdf..."
 pdflatex -halt-on-error -jobname $PDF_MAINNAME $CURRENT_DIR/contents/main.tex > $LOGFILE 2>&1
-
 echo "Done, all in $PDF_MAINNAME.pdf ;-)"
+
+if [ $1 = "clean" ]; then
+    rm *.log *.aux
+    cd pdf
+    rm *.pdf *.log *.aux
+fi
